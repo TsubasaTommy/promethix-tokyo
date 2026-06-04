@@ -1,0 +1,172 @@
+---
+const nav = [
+  { href: '#about',    label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#works',    label: 'Works' },
+  { href: '#tech',     label: 'Tech' },
+  { href: '#process',  label: 'Process' },
+  { href: '#faq',      label: 'FAQ' },
+  { href: '#company',  label: 'Company' },
+  { href: '#contact',  label: 'Contact' },
+];
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="brand" aria-label="トップへ">
+      <span class="brand__mark">PX</span>
+      <span class="brand__name">Promethix LLC</span>
+    </a>
+
+    <nav class="site-nav" aria-label="グローバルナビ">
+      <ul>
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} class="site-nav__link">{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="#contact" class="btn btn--primary site-header__cta">お問い合わせ</a>
+
+    <button class="site-header__toggle" aria-label="メニューを開閉" data-menu-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.92); /* blur 無効時（モバイル）の視認性を確保する不透明寄り背景 */
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* backdrop-filter はスクロール中の合成コストが高くモバイルGPUでジャンク要因になるため、
+     デスクトップ幅（既存ブレークポイント 800px と整合する 801px 以上）に限定して有効化する */
+  @media (min-width: 801px) {
+    .site-header {
+      background: rgba(255, 255, 255, 0.82);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      backdrop-filter: saturate(180%) blur(16px);
+    }
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 16px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--color-text);
+    color: var(--color-text-invert);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand__name {
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-nav__link {
+    display: block;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .site-nav__link:hover {
+    color: var(--color-text);
+    background: var(--color-bg-soft);
+  }
+
+  .site-header__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .site-header__toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  @media (max-width: 800px) {
+    .site-nav,
+    .site-header__cta { display: none; }
+    .site-header__toggle { display: inline-flex; }
+
+    .site-header[data-open='true'] .site-nav {
+      display: block;
+      position: fixed;
+      top: 72px;
+      inset-inline: 0;
+      background: var(--color-bg);
+      padding: 12px 0 20px;
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .site-header[data-open='true'] .site-nav ul {
+      flex-direction: column;
+      gap: 2px;
+      padding-inline: 16px;
+    }
+
+    .site-header[data-open='true'] .site-nav__link {
+      padding-block: 12px;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const header = document.querySelector('.site-header');
+  toggle?.addEventListener('click', () => {
+    const open = header?.getAttribute('data-open') === 'true';
+    header?.setAttribute('data-open', open ? 'false' : 'true');
+  });
+  document.querySelectorAll('.site-nav__link').forEach(link => {
+    link.addEventListener('click', () => header?.setAttribute('data-open', 'false'));
+  });
+</script>

@@ -1,0 +1,128 @@
+---
+const year = new Date().getFullYear();
+// Header.astro の nav と同期（セクションidと一致させる）。フッターからの内部リンクでクローラビリティとUXを向上
+const footerNav = [
+  { href: '#about',    label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#works',    label: 'Works' },
+  { href: '#tech',     label: 'Tech' },
+  { href: '#process',  label: 'Process' },
+  { href: '#faq',      label: 'FAQ' },
+  { href: '#company',  label: 'Company' },
+  { href: '#contact',  label: 'Contact' },
+];
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="brand">
+        <span class="brand__mark">PX</span>
+        <span class="brand__name">Promethix LLC</span>
+      </div>
+      <nav class="site-footer__nav" aria-label="フッターナビ">
+        {footerNav.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="site-footer__links">
+        <a href="mailto:contact@promethix-tokyo.com">contact@promethix-tokyo.com</a>
+      </div>
+      <small class="site-footer__copy">© {year} Promethix合同会社 (Promethix LLC)</small>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: 40px;
+    background: var(--color-bg);
+  }
+
+  .site-footer__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    flex-wrap: wrap;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--color-text);
+    color: var(--color-text-invert);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand__name {
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
+  }
+
+  .site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+  }
+
+  .site-footer__nav a {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .site-footer__nav a:hover {
+    color: var(--color-accent);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+  }
+
+  .site-footer__links a {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--color-accent);
+  }
+
+  .site-footer__copy {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 600px) {
+    .site-footer__top,
+    .site-footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+</style>

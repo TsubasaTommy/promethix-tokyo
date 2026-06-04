@@ -1,0 +1,8 @@
+# Promethix LLC — https://promethix-tokyo.com
+# 営業リード獲得が目的のため、検索エンジン・生成AIクローラとも全許可。
+# 公開コーポレートサイトであり、守秘情報（クライアント名・業界等）は掲載していない。
+
+User-agent: *
+Allow: /
+
+Sitemap: https://promethix-tokyo.com/sitemap-index.xml
