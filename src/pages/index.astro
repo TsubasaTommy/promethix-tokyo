@@ -167,10 +167,10 @@ const plans = [
   },
 ];
 
-const overview = [
+const overview: { label: string; value: string; datetime?: string }[] = [
   { label: '会社名',    value: 'Promethix合同会社 (Promethix LLC)' },
   { label: '代表社員',  value: '山本 翼' },
-  { label: '設立',      value: '2026年7月' },
+  { label: '設立',      value: '2026年7月', datetime: '2026-07' },
   { label: '事業内容',  value: 'Webアプリ・業務システムの受託開発' },
   { label: '所在地',    value: '〒150-0044 東京都渋谷区円山町5番3号 MIEUX渋谷ビル8階' },
 ];
@@ -293,13 +293,13 @@ const jsonLd = {
 >
 
   <!-- ── Hero ── -->
-  <section id="hero" class="hero">
+  <div id="hero" class="hero">
     <div class="hero__bg" aria-hidden="true">
       <div class="hero__blob hero__blob--1"></div>
       <div class="hero__blob hero__blob--2"></div>
     </div>
     <div class="container hero__inner">
-      <p class="eyebrow fade-up">Software Development — Shibuya, Tokyo</p>
+      <p class="eyebrow fade-up" lang="en">Software Development — Shibuya, Tokyo</p>
       <h1 class="fade-up" style="transition-delay: 0.07s">
         自社開発で磨かれた<br />
         <span class="gradient-text">技術力をあなたへ。</span>
@@ -319,25 +319,25 @@ const jsonLd = {
         <div><dt>継続運用中システム</dt><dd>5<small>+</small></dd></div>
       </dl>
     </div>
-  </section>
+  </div>
 
   <!-- ── About ── -->
-  <section id="about" class="section">
+  <section id="about" class="section" aria-labelledby="about-title">
     <div class="container">
-      <div class="about__header fade-up">
-        <p class="eyebrow">About</p>
-        <h2>プロダクトを動かすチームが、<br />システムをつくる。</h2>
+      <header class="about__header fade-up">
+        <p class="eyebrow" lang="en">About</p>
+        <h2 id="about-title">プロダクトを動かすチームが、<br />システムをつくる。</h2>
         <p class="about__lead">
           私たちは、自社プロダクトを企画・開発・運用しているエンジニアチームです。
           日々ユーザーに使われるサービスを改善し続けてきた経験をベースに、
           受託案件でも「長期運用を見据えた設計と品質」を徹底します。
         </p>
-      </div>
+      </header>
 
       <div class="grid grid--3">
         {strengths.map((s, i) => (
           <article class="strength fade-up" style={`--i:${i}`}>
-            <span class="strength__no">{s.no}</span>
+            <span class="strength__no" aria-hidden="true">{s.no}</span>
             <h3>{s.title}</h3>
             <p>{s.body}</p>
           </article>
@@ -347,21 +347,21 @@ const jsonLd = {
   </section>
 
   <!-- ── Services ── -->
-  <section id="services" class="section section--soft">
+  <section id="services" class="section section--soft" aria-labelledby="services-title">
     <div class="container">
       <header class="section__header fade-up">
-        <p class="eyebrow">Services</p>
-        <h2>提供するサービス</h2>
+        <p class="eyebrow" lang="en">Services</p>
+        <h2 id="services-title">提供するサービス</h2>
         <p>プロダクト開発のフェーズや課題に応じて、最適な体制でご支援します。</p>
       </header>
 
       <div class="grid grid--3">
         {services.map((s, i) => (
           <article class="card service-card fade-up" style={`--i:${i}`}>
-            <span class="service-card__icon">{s.icon}</span>
+            <span class="service-card__icon" aria-hidden="true">{s.icon}</span>
             <h3>{s.title}</h3>
             <p>{s.body}</p>
-            <ul class="service-card__tags">
+            <ul class="service-card__tags" role="list">
               {s.tags.map(t => <li>{t}</li>)}
             </ul>
           </article>
@@ -371,26 +371,26 @@ const jsonLd = {
   </section>
 
   <!-- ── Works ── -->
-  <section id="works" class="section">
+  <section id="works" class="section" aria-labelledby="works-title">
     <div class="container">
       <header class="section__header fade-up">
-        <p class="eyebrow">Works</p>
-        <h2>開発実績</h2>
+        <p class="eyebrow" lang="en">Works</p>
+        <h2 id="works-title">開発実績</h2>
         <p>自社グループで設計から運用まで手がけた主なシステムです。<br />守秘義務のため、クライアント名・業界は伏せています。</p>
       </header>
 
       <div class="grid grid--2">
         {works.map((w, i) => (
           <article class="card work-card fade-up" style={`--i:${i % 2}`}>
-            <span class="service-card__icon">{w.icon}</span>
+            <span class="service-card__icon" aria-hidden="true">{w.icon}</span>
             <h3>{w.category}</h3>
             <p class="work-card__intro">{w.intro}</p>
-            <ul class="work-card__items">
+            <ul class="work-card__items" role="list">
               {w.items.map((item) => (
                 <li class="work-item">
-                  <p class="work-item__name">{item.name}</p>
+                  <h4 class="work-item__name">{item.name}</h4>
                   <p class="work-item__desc">{item.desc}</p>
-                  <ul class="work-item__tags">
+                  <ul class="work-item__tags" role="list">
                     {item.tech.map((t) => <li>{t}</li>)}
                   </ul>
                 </li>
@@ -403,11 +403,11 @@ const jsonLd = {
   </section>
 
   <!-- ── Tech Stack ── -->
-  <section id="tech" class="section section--soft">
+  <section id="tech" class="section section--soft" aria-labelledby="tech-title">
     <div class="container">
       <header class="section__header fade-up">
-        <p class="eyebrow">Tech Stack</p>
-        <h2>対応技術スタック</h2>
+        <p class="eyebrow" lang="en">Tech Stack</p>
+        <h2 id="tech-title">対応技術スタック</h2>
         <p>要件に最適な技術を選定します。受託開発で実際に採用している主な技術です。</p>
       </header>
 
@@ -415,7 +415,7 @@ const jsonLd = {
         {techStack.map((group, i) => (
           <article class="card tech-card fade-up" style={`--i:${i % 2}`}>
             <h3>{group.category}</h3>
-            <ul class="service-card__tags tech-card__tags">
+            <ul class="service-card__tags tech-card__tags" role="list">
               {group.items.map((t) => <li>{t}</li>)}
             </ul>
           </article>
@@ -425,11 +425,11 @@ const jsonLd = {
   </section>
 
   <!-- ── Process ── -->
-  <section id="process" class="section">
+  <section id="process" class="section" aria-labelledby="process-title">
     <div class="container">
       <header class="section__header fade-up">
-        <p class="eyebrow">Process</p>
-        <h2>進め方とご依頼</h2>
+        <p class="eyebrow" lang="en">Process</p>
+        <h2 id="process-title">進め方とご依頼</h2>
         <p>要件整理から運用まで、無理のない進め方でご一緒します。</p>
       </header>
 
@@ -437,7 +437,7 @@ const jsonLd = {
       <ol class="flow">
         {flowSteps.map((s, i) => (
           <li class="flow__step fade-up" style={`--i:${i}`}>
-            <span class="flow__no">{s.no}</span>
+            <span class="flow__no" aria-hidden="true">{s.no}</span>
             <h3>{s.title}</h3>
             <p>{s.body}</p>
           </li>
@@ -452,7 +452,7 @@ const jsonLd = {
       <div class="grid grid--3">
         {plans.map((p, i) => (
           <article class="card plan-card fade-up" style={`--i:${i}`}>
-            <span class="service-card__icon">{p.icon}</span>
+            <span class="service-card__icon" aria-hidden="true">{p.icon}</span>
             <h3>{p.title}</h3>
             <p>{p.body}</p>
           </article>
@@ -474,11 +474,11 @@ const jsonLd = {
   </section>
 
   <!-- ── FAQ ── -->
-  <section id="faq" class="section section--soft">
+  <section id="faq" class="section section--soft" aria-labelledby="faq-title">
     <div class="container">
       <header class="section__header fade-up">
-        <p class="eyebrow">FAQ</p>
-        <h2>よくあるご質問</h2>
+        <p class="eyebrow" lang="en">FAQ</p>
+        <h2 id="faq-title">よくあるご質問</h2>
         <p>受託開発のご依頼・費用・契約形態について、よくいただく質問をまとめました。</p>
       </header>
 
@@ -494,18 +494,18 @@ const jsonLd = {
   </section>
 
   <!-- ── Company ── -->
-  <section id="company" class="section">
+  <section id="company" class="section" aria-labelledby="company-title">
     <div class="container">
       <header class="section__header fade-up">
-        <p class="eyebrow">Company</p>
-        <h2>会社概要</h2>
+        <p class="eyebrow" lang="en">Company</p>
+        <h2 id="company-title">会社概要</h2>
       </header>
 
       <dl class="overview fade-up" style="transition-delay: 0.1s">
         {overview.map((row) => (
           <div class="overview__row">
             <dt>{row.label}</dt>
-            <dd>{row.value}</dd>
+            <dd>{row.datetime ? <time datetime={row.datetime}>{row.value}</time> : row.value}</dd>
           </div>
         ))}
       </dl>
@@ -513,15 +513,15 @@ const jsonLd = {
   </section>
 
   <!-- ── Contact ── -->
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section" aria-labelledby="contact-title">
     <div class="contact-section__bg" aria-hidden="true">
       <div class="contact-section__blob contact-section__blob--1"></div>
       <div class="contact-section__blob contact-section__blob--2"></div>
     </div>
     <div class="container contact-section__inner">
       <div class="fade-up">
-        <p class="eyebrow">Contact</p>
-        <h2>
+        <p class="eyebrow" lang="en">Contact</p>
+        <h2 id="contact-title">
           一緒に、<span class="gradient-text">いいものを<br />つくりましょう</span>
         </h2>
         <p class="contact-section__lead">
@@ -531,7 +531,7 @@ const jsonLd = {
       <div class="contact-section__actions fade-up" style="transition-delay: 0.12s">
         <button class="email-copy" data-copy="contact@promethix-tokyo.com">
           <span class="email-copy__text">contact@promethix-tokyo.com</span>
-          <span class="email-copy__badge">クリックでコピー</span>
+          <span class="email-copy__badge" role="status" aria-live="polite">クリックでコピー</span>
         </button>
       </div>
       <address class="contact-section__address fade-up" style="transition-delay: 0.2s">
@@ -1060,6 +1060,31 @@ const jsonLd = {
     { threshold: 0.12 }
   );
   document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+  // スクロールスパイ: 表示中セクションに対応する nav リンクへ aria-current="page" を付与
+  const navLinks = Array.from(document.querySelectorAll('.site-nav__link'));
+  const navIds = new Set(
+    navLinks.map((a) => a.getAttribute('href')?.slice(1)).filter(Boolean)
+  );
+  const setCurrent = (id: string) => {
+    navLinks.forEach((a) => {
+      if (a.getAttribute('href') === `#${id}`) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  };
+  const spyTargets = Array.from(document.querySelectorAll('section[id]')).filter((s) =>
+    navIds.has(s.id)
+  );
+  const spyObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible[0]) setCurrent(visible[0].target.id);
+    },
+    { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+  );
+  spyTargets.forEach((s) => spyObserver.observe(s));
 
   document.querySelectorAll('[data-copy]').forEach((btn) => {
     btn.addEventListener('click', async () => {
